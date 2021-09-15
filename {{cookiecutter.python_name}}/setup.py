@@ -15,24 +15,19 @@ pkg_json = json.loads((HERE / "package.json").read_bytes())
 # The name of the project
 name = "{{ cookiecutter.python_name }}"
 
-lab_path = (HERE / pkg_json["jupyterlab"]["outputDir"])
+quetz_path = (HERE / pkg_json["quetz"]["outputDir"])
 
 # Representative files that should exist after a successful build
 ensured_targets = [
-    str(lab_path / "package.json"){% if cookiecutter.kind.lower() != "theme" %},
-    str(lab_path / "static/style.js"){% endif %}
+    str(quetz_path / "package.json"){% if cookiecutter.kind.lower() != "theme" %},
+    str(quetz_path / "static/style.js"){% endif %}
 ]
 
-labext_name = pkg_json["name"]
+quetzext_name = pkg_json["name"]
 
 data_files_spec = [
-    ("share/jupyter/labextensions/%s" % labext_name, str(lab_path.relative_to(HERE)), "**"),
-    ("share/jupyter/labextensions/%s" % labext_name, str("."), "install.json"),{% if cookiecutter.kind.lower() == "server" %}
-    ("etc/jupyter/jupyter_server_config.d",
-     "jupyter-config/server-config", "{{ cookiecutter.python_name }}.json"),
-    # For backward compatibility with notebook server
-    ("etc/jupyter/jupyter_notebook_config.d",
-     "jupyter-config/nb-config", "{{ cookiecutter.python_name }}.json"),{% endif %}
+    ("share/quetz/frontend/extensions/%s" % quetzext_name, str(quetz_path.relative_to(HERE)), "**"),
+    ("share/quetz/frontend/extensions/%s" % quetzext_name, str("."), "install.json")
 ]
 
 long_description = (HERE / "README.md").read_text(encoding="utf8")
@@ -55,10 +50,8 @@ setup_args = dict(
     license_file="LICENSE",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    packages=setuptools.find_packages(),{% if cookiecutter.kind.lower() == "server" %}
-    install_requires=[
-        "jupyter_server>=1.6,<2"
-    ],
+    packages=setuptools.find_packages(),
+    install_requires=["quetz-frontend"],
     extras_require={
         "test": [{% if cookiecutter.test.lower().startswith('y') %}
             "coverage",
@@ -67,12 +60,12 @@ setup_args = dict(
             "pytest-cov",
             "pytest-tornasync"
         {% endif %}]
-    },{% endif %}
+    },
     zip_safe=False,
     include_package_data=True,
     python_requires=">=3.7",
     platforms="Linux, Mac OS X, Windows",
-    keywords=["Jupyter", "JupyterLab", "JupyterLab3"],
+    keywords=["Quetz"],
     classifiers=[
         "License :: OSI Approved :: BSD License",
         "Programming Language :: Python",
@@ -80,12 +73,7 @@ setup_args = dict(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
-        "Programming Language :: Python :: 3.10",
-        "Framework :: Jupyter",
-        "Framework :: Jupyter :: JupyterLab",
-        "Framework :: Jupyter :: JupyterLab :: 3",
-        "Framework :: Jupyter :: JupyterLab :: Extensions",
-        "Framework :: Jupyter :: JupyterLab :: Extensions :: Prebuilt",
+        "Programming Language :: Python :: 3.10"
     ],
 )
 
@@ -96,7 +84,7 @@ try:
         get_data_files
     )
     post_develop = npm_builder(
-        build_cmd="install:extension", source_dir="src", build_dir=lab_path
+        build_cmd="install:extension", source_dir="src", build_dir=quetz_path
     )
     setup_args["cmdclass"] = wrap_installers(post_develop=post_develop, ensured_targets=ensured_targets)
     setup_args["data_files"] = get_data_files(data_files_spec)

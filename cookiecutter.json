@@ -1,12 +1,11 @@
 {
-  "kind": ["frontend", "server", "theme"],
+  "kind": ["frontend", "theme"],
   "author_name": "",
   "author_email": "",
-  "labextension_name": "{% if cookiecutter.kind == 'theme' %}mytheme{% else %}myextension{% endif %}",
-  "python_name": "{{ cookiecutter.labextension_name | replace('-', '_') }}",
-  "project_short_description": "A JupyterLab extension.",
+  "extension_name": "{% if cookiecutter.kind == 'theme' %}mytheme{% else %}myextension{% endif %}",
+  "python_name": "{{ cookiecutter.extension_name | replace('-', '_') }}",
+  "project_short_description": "A Quetz Frontend extension.",
   "has_settings": "n",
-  "has_binder": "n",
   "test": "y",
-  "repository": "https://github.com/github_username/{{ cookiecutter.labextension_name }}"
+  "repository": "https://github.com/github_username/{{ cookiecutter.extension_name }}"
 }
