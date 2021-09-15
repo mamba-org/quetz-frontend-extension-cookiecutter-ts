@@ -1,6 +1,6 @@
-# Quetz Frontend extension cookicutter
+# Quetz Frontend extension cookiecutter
 
-![Github Actions Status](https://github.com/mamba-org/quetz-extension-cookicutter/workflows/CI/badge.svg)
+![Github Actions Status](https://github.com/hbcarlos/extension-cookiecutter-ts/workflows/CI/badge.svg)
 
 A [cookiecutter](https://github.com/audreyr/cookiecutter) template for creating
 a Quetz-Frontend extension using TypeScript.
@@ -16,5 +16,5 @@ pip install cookiecutter
 Use cookiecutter to generate a package, following the prompts to fill in the name and authorship of your new Quetz-frontend extension.
 
 ```
-cookiecutter https://github.com/mamba-org/quetz-extension-cookicutter
+cookiecutter https://github.com/hbcarlos/extension-cookiecutter-ts
 ```
