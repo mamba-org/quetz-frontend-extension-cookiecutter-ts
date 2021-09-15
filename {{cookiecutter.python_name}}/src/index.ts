@@ -5,24 +5,22 @@ import {
 
 import { IThemeManager } from '@jupyterlab/apputils';{% endif %}{% if cookiecutter.has_settings.lower().startswith('y') %}
 
-import { ISettingRegistry } from '@jupyterlab/settingregistry';{% endif %}{% if cookiecutter.kind.lower() == 'server' %}
-
-import { requestAPI } from './handler';{% endif %}
+import { ISettingRegistry } from '@jupyterlab/settingregistry';{% endif %}
 
 /**
- * Initialization data for the {{ cookiecutter.labextension_name }} extension.
+ * Initialization data for the {{ cookiecutter.extension_name }} extension.
  */
 const plugin: JupyterFrontEndPlugin<void> = {
-  id: '{{ cookiecutter.labextension_name }}:plugin',
+  id: '{{ cookiecutter.extension_name }}:plugin',
   autoStart: true,{% if cookiecutter.kind.lower() == 'theme' %}
   requires: [IThemeManager],{% endif %}{% if cookiecutter.has_settings.lower().startswith('y') %}
   optional: [ISettingRegistry],{% endif %}
   activate: (app: JupyterFrontEnd{% if cookiecutter.kind.lower() == 'theme' %}, manager: IThemeManager{% endif %}{% if cookiecutter.has_settings.lower().startswith('y') %}, settingRegistry: ISettingRegistry | null{% endif %}) => {
-    console.log('JupyterLab extension {{ cookiecutter.labextension_name }} is activated!');{% if cookiecutter.kind.lower() == 'theme' %}
+    console.log('Quetz extension {{ cookiecutter.extension_name }} is activated!');{% if cookiecutter.kind.lower() == 'theme' %}
     const style = '{{ cookiecutter.labextension_name }}/index.css';
 
     manager.register({
-      name: '{{ cookiecutter.labextension_name }}',
+      name: '{{ cookiecutter.extension_name }}',
       isLight: true,
       load: () => manager.loadCSS(style),
       unload: () => Promise.resolve(undefined)
@@ -32,22 +30,12 @@ const plugin: JupyterFrontEndPlugin<void> = {
       settingRegistry
         .load(plugin.id)
         .then(settings => {
-          console.log('{{ cookiecutter.labextension_name }} settings loaded:', settings.composite);
+          console.log('{{ cookiecutter.extension_name }} settings loaded:', settings.composite);
         })
         .catch(reason => {
-          console.error('Failed to load settings for {{ cookiecutter.labextension_name }}.', reason);
+          console.error('Failed to load settings for {{ cookiecutter.extension_name }}.', reason);
         });
-    }{% endif %}{% if cookiecutter.kind.lower() == 'server' %}
-
-    requestAPI<any>('get_example')
-      .then(data => {
-        console.log(data);
-      })
-      .catch(reason => {
-        console.error(
-          `The {{ cookiecutter.python_name }} server extension appears to be missing.\n${reason}`
-        );
-      });{% endif %}
+    }{% endif %}
   }
 };
 
