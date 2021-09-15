@@ -20,16 +20,11 @@ ensured_targets = [
     str(lab_path / "static/style.js")
 ]
 
-labext_name = "{{ cookiecutter.labextension_name }}"
+labext_name = "{{ cookiecutter.extension_name }}"
 
 data_files_spec = [
-    ("share/jupyter/labextensions/%s" % labext_name, str(lab_path.relative_to(HERE)), "**"),
-    ("share/jupyter/labextensions/%s" % labext_name, str("."), "install.json"),{% if cookiecutter.has_server_extension == "y" %}
-    ("etc/jupyter/jupyter_server_config.d",
-     "jupyter-config/server-config", "{{ cookiecutter.python_name }}.json"),
-    # For backward compatibility with notebook server
-    ("etc/jupyter/jupyter_notebook_config.d",
-     "jupyter-config/nb-config", "{{ cookiecutter.python_name }}.json"),{% endif %}
+    ("share/quetz/frontend/extensions/%s" % labext_name, str(lab_path.relative_to(HERE)), "**"),
+    ("share/quetz/frontend/extensions/%s" % labext_name, str("."), "install.json")
 ]
 
 long_description = (HERE / "README.md").read_text()
@@ -48,9 +43,7 @@ setup_args = dict(
     long_description=long_description,
     long_description_content_type="text/markdown",
     packages=setuptools.find_packages(),
-    install_requires=[{% if cookiecutter.has_server_extension == "y" %}
-        "jupyter_server>=1.6,<2"
-    {% endif %}],
+    install_requires=[],
     zip_safe=False,
     include_package_data=True,
     python_requires=">=3.6",

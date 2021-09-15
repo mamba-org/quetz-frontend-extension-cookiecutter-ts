@@ -1,11 +1,8 @@
 {
   "author_name": "",
   "author_email": "",
-  "labextension_name": "myextension",
-  "python_name": "{{ cookiecutter.labextension_name | replace('-', '_') }}",
-  "project_short_description": "A JupyterLab extension.",
-  "has_settings": "n",
-  "has_server_extension": "n",
-  "has_binder": "n",
-  "repository": "https://github.com/github_username/{{ cookiecutter.labextension_name }}"
+  "extension_name": "myextension",
+  "python_name": "{{ cookiecutter.extension_name | replace('-', '_') }}",
+  "project_short_description": "A Quetz Frontend extension.",
+  "repository": "https://github.com/github_username/{{ cookiecutter.extension_name }}"
 }

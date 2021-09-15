@@ -45,25 +45,21 @@ jobs:
           yarn-
     {% endraw %}
     - name: Install dependencies
-      run: python -m pip install -U jupyterlab~=3.1 check-manifest
+      run: python -m pip install -U quetz-frontend check-manifest
     - name: Build the extension
       run: |
         set -eux
-        jlpm
-        jlpm run eslint:check
+        yarn
+        yarn run eslint:check
         python -m pip install .
-{% if cookiecutter.has_server_extension.lower().startswith('y') %}
-        jupyter server extension list 2>&1 | grep -ie "{{ cookiecutter.python_name }}.*OK"
-{% endif %}
-        jupyter labextension list 2>&1 | grep -ie "{{ cookiecutter.labextension_name }}.*OK"
-        python -m jupyterlab.browser_check
+        quetz-frontend list 2>&1 | grep -ie "{{ cookiecutter.extension_name }}.*OK"
 
         check-manifest -v
 
         pip install build
         python -m build --sdist
         cp dist/*.tar.gz myextension.tar.gz
-        pip uninstall -y myextension jupyterlab
+        pip uninstall -y myextension quetz-frontend
         rm -rf myextension
 
     - uses: actions/upload-artifact@v2
@@ -93,6 +89,5 @@ jobs:
         sudo rm -rf $(which node)
         sudo rm -rf $(which node)
         pip install myextension.tar.gz
-        pip install jupyterlab
-        jupyter labextension list 2>&1 | grep -ie "{{ cookiecutter.labextension_name }}.*OK"
-        python -m jupyterlab.browser_check --no-chrome-test
+        pip install quetz-frontend
+        quetz-frontend list 2>&1 | grep -ie "{{ cookiecutter.extension_name }}"

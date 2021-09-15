@@ -1,11 +1,11 @@
 {
-  "name": "{{ cookiecutter.labextension_name }}",
+  "name": "{{ cookiecutter.extension_name }}",
   "version": "0.1.0",
   "description": "{{ cookiecutter.project_short_description }}",
   "keywords": [
-    "jupyter",
-    "jupyterlab",
-    "jupyterlab-extension"
+    "quetz",
+    "quetz-frontend",
+    "quetz-frontend-extension"
   ],
   "homepage": "{{ cookiecutter.repository }}",
   "bugs": {
@@ -18,8 +18,7 @@
   },
   "files": [
     "lib/**/*.{d.ts,eot,gif,html,jpg,js,js.map,json,png,svg,woff2,ttf}",
-    "style/**/*.{css,js,eot,gif,html,jpg,json,png,svg,woff2,ttf}"{% if cookiecutter.has_settings.lower().startswith('y') %},
-    "schema/*.json"{% endif %}
+    "style/**/*.{css,js,eot,gif,html,jpg,json,png,svg,woff2,ttf}"
   ],
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -29,28 +28,24 @@
     "url": "{{ cookiecutter.repository }}.git"
   },
   "scripts": {
-    "build": "jlpm run build:lib && jlpm run build:labextension:dev",
-    "build:prod": "jlpm run clean && jlpm run build:lib && jlpm run build:labextension",
-    "build:labextension": "jupyter labextension build .",
-    "build:labextension:dev": "jupyter labextension build --development True .",
+    "build": "yarn run build:lib && yarn run build:extension:dev",
+    "build:prod": "yarn run clean && yarn run build:lib && yarn run build:extension",
+    "build:extension": "quetz-frontend build .",
+    "build:extension:dev": "quetz-frontend build --development .",
     "build:lib": "tsc",
-    "clean": "jlpm run clean:lib",
+    "clean": "yarn run clean:lib",
     "clean:lib": "rimraf lib tsconfig.tsbuildinfo",
-    "clean:labextension": "rimraf {{ cookiecutter.python_name }}/labextension",
-    "clean:all": "jlpm run clean:lib && jlpm run clean:labextension",
+    "clean:extension": "rimraf {{ cookiecutter.python_name }}/labextension",
+    "clean:all": "yarn run clean:lib && yarn run clean:extension",
     "eslint": "eslint . --ext .ts,.tsx --fix",
     "eslint:check": "eslint . --ext .ts,.tsx",
-    "install:extension": "jlpm run build",
-    "watch": "run-p watch:src watch:labextension",
+    "install:extension": "yarn run build",
+    "watch": "run-p watch:src watch:extension",
     "watch:src": "tsc -w",
-    "watch:labextension": "jupyter labextension watch ."
+    "watch:extension": "quetz-frontend watch ."
   },
   "dependencies": {
-    "@jupyterlab/application": "^3.1.0"{% if cookiecutter.has_settings.lower().startswith('y') %},
-    "@jupyterlab/settingregistry": "^3.1.0"{% endif %}{% if cookiecutter.has_server_extension.lower().startswith('y') %},
-    "@jupyterlab/coreutils": "^5.1.0",
-    "@jupyterlab/services": "^6.1.0"
-{% endif %}
+    "@jupyterlab/application": "^3.1.0"
   },
   "devDependencies": {
     "@jupyterlab/builder": "^3.1.0",
@@ -58,8 +53,7 @@
     "@typescript-eslint/parser": "^4.8.1",
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^6.15.0",
-    "eslint-plugin-prettier": "^3.1.4", {% if cookiecutter.has_server_extension.lower().startswith('y') %}
-    "mkdirp": "^1.0.3", {% endif %}
+    "eslint-plugin-prettier": "^3.1.4",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.1.1",
     "rimraf": "^3.0.2",
@@ -70,26 +64,15 @@
     "style/index.js"
   ],
   "styleModule": "style/index.js",
-  "jupyterlab": { {% if cookiecutter.has_server_extension.lower().startswith('y') %}
-    "discovery": {
-        "server": {
-          "managers": [
-            "pip"
-          ],
-          "base": {
-            "name": "{{ cookiecutter.python_name }}"
-          }
-        }
-    }, {% endif %}
+  "jupyterlab": {
     "extension": true,
-    "outputDir": "{{cookiecutter.python_name}}/labextension"{% if cookiecutter.has_settings.lower().startswith('y') %},
-    "schemaDir": "schema"{% endif %}
+    "outputDir": "{{cookiecutter.python_name}}/labextension"
   },
   "jupyter-releaser": {
     "hooks": {
       "before-build-npm": [
-        "python -m pip install jupyterlab~=3.1",
-        "jlpm"
+        "python -m pip install quetz-frontend",
+        "yarn"
       ]
     }
   }
