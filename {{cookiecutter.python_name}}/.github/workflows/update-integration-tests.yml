@@ -32,7 +32,7 @@ jobs:
       - name: Install dependencies
         run: |
           set -eux
-          jlpm
+          yarn
           python -m pip install .
 
       - uses: jupyterlab/maintainer-tools/.github/actions/update-snapshots@v1

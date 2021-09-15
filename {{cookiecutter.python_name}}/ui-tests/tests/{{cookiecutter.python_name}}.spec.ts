@@ -16,6 +16,6 @@ test('should emit an activation console message', async ({ page }) => {
   await page.goto();
 
   expect(
-    logs.filter(s => s === 'JupyterLab extension {{ cookiecutter.labextension_name }} is activated!')
+    logs.filter(s => s === 'quetz-frontend extension {{ cookiecutter.extension_name }} is activated!')
   ).toHaveLength(1);
 });

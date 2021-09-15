@@ -34,25 +34,9 @@ if __name__ == "__main__":
     else:
         remove_path(PROJECT_DIRECTORY / "style/variables.css")
 
-    if not "{{ cookiecutter.kind }}".lower() == "server":
-        for f in (
-            "{{ cookiecutter.python_name }}/handlers.py",
-            "src/handler.ts",
-            "jupyter-config",
-            "conftest.py",
-            "{{ cookiecutter.python_name }}/tests"
-        ):
-            remove_path(PROJECT_DIRECTORY / f)
-
-    if not "{{ cookiecutter.has_binder }}".lower().startswith("y"):
-        remove_path(PROJECT_DIRECTORY / "binder")
-        remove_path(PROJECT_DIRECTORY / ".github/workflows/binder-on-pr.yml")
-
     if not "{{ cookiecutter.test }}".lower().startswith("y"):
         remove_path(PROJECT_DIRECTORY / ".github" / "workflows" / "update-integration-tests.yml")
         remove_path(PROJECT_DIRECTORY / "src" / "__tests__")
         remove_path(PROJECT_DIRECTORY / "ui-tests")
-        remove_path(PROJECT_DIRECTORY / "{{ cookiecutter.python_name }}" / "tests")
         remove_path(PROJECT_DIRECTORY / "babel.config.js")
-        remove_path(PROJECT_DIRECTORY / "conftest.py")
         remove_path(PROJECT_DIRECTORY / "jest.config.js")
