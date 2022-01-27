@@ -3,7 +3,9 @@
 ![Github Actions Status](https://github.com/hbcarlos/extension-cookiecutter-ts/workflows/CI/badge.svg)
 
 A [cookiecutter](https://github.com/audreyr/cookiecutter) template for creating
-a Quetz-Frontend extension using TypeScript.
+a Quetz-Frontend extension using TypeScript. Two kinds of extension are supported:
+- _frontend_: Pure frontend extension written in TypeScript.
+- _theme_: Theme for JupyterLab (using CSS variables).
 
 ## Use the template to create package
 
