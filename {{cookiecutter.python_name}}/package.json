@@ -45,7 +45,7 @@
     "watch:extension": "quetz-frontend watch ."
   },
   "dependencies": {
-    "@quetz-frontend/application": "^0.2.0"{% if cookiecutter.kind.lower() == 'theme' %},
+    "@quetz-frontend/application": ">=0.3.0 <1.0.0"{% if cookiecutter.kind.lower() == 'theme' %},
     "@jupyterlab/apputils": "^3.2.7"{% endif %}{% if cookiecutter.has_settings.lower().startswith('y') %},
     "@jupyterlab/settingregistry": "^3.2.7"{% endif %}
   },

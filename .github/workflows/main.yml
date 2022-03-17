@@ -44,7 +44,7 @@ jobs:
           pip install quetz-frontend
           yarn install && yarn run eslint:check
           pip install -e .
-          quetz-frontend develop . --overwrite
+          quetz-frontend develop .
           quetz-frontend list
           quetz-frontend list 2>&1 | grep -ie "${NAME}"
 
@@ -85,7 +85,7 @@ jobs:
           pip install quetz-frontend
           jlpm install
           pip install -e .
-          quetz-frontend develop . --overwrite
+          quetz-frontend develop .
           quetz-frontend list
           quetz-frontend list 2>&1 | grep -ie "${NAME}"
 
