@@ -50,7 +50,7 @@ setup_args = dict(
     long_description=long_description,
     long_description_content_type="text/markdown",
     packages=setuptools.find_packages(),
-    install_requires=[],
+    install_requires=["quetz-frontend"],
     zip_safe=False,
     include_package_data=True,
     python_requires=">=3.6",
