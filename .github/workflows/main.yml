@@ -83,7 +83,7 @@ jobs:
           python -c "from cookiecutter.main import cookiecutter; import json; f=open('cookiecutter.json'); d=json.load(f); f.close(); d['has_settings']='y'; cookiecutter('.', extra_context=d, no_input=True)"
           pushd myextension
           pip install quetz-frontend
-          jlpm install
+          yarn install
           pip install -e .
           quetz-frontend develop .
           quetz-frontend list
@@ -124,7 +124,7 @@ jobs:
           python -c "from cookiecutter.main import cookiecutter; import json; f=open('cookiecutter.json'); d=json.load(f); f.close(); d['kind']='theme'; cookiecutter('.', extra_context=d, no_input=True)"
           pushd mytheme
           pip install quetz-frontend
-          jlpm install
+          yarn install
           pip install -e .
           quetz-frontend develop . --overwrite
           quetz-frontend list
