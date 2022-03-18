@@ -128,7 +128,7 @@ jobs:
           pip install -e .
           quetz-frontend develop .
           quetz-frontend list
-          quetz-frontend list 2>&1 | grep -ie "myextension"
+          quetz-frontend list 2>&1 | grep -ie "mytheme"
 
           quetz-frontend clean
           quetz-frontend clean-frontend
