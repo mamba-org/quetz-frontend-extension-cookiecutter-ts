@@ -1,8 +1,10 @@
 {
+  "kind": ["frontend", "theme"],
   "author_name": "",
   "author_email": "",
-  "extension_name": "myextension",
+  "extension_name": "{% if cookiecutter.kind == 'theme' %}mytheme{% else %}myextension{% endif %}",
   "python_name": "{{ cookiecutter.extension_name | replace('-', '_') }}",
   "project_short_description": "A Quetz Frontend extension.",
+  "has_settings": "n",
   "repository": "https://github.com/github_username/{{ cookiecutter.extension_name }}"
 }

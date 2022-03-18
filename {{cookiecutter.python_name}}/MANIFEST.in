@@ -1,6 +1,5 @@
 include LICENSE
-include README.md
-include RELEASE.md
+include *.md
 include pyproject.toml
 
 include package.json
@@ -8,7 +7,7 @@ include install.json
 include ts*.json
 include yarn.lock
 
-graft {{ cookiecutter.python_name }}/labextension
+graft {{ cookiecutter.python_name }}/quetzextension
 
 # Javascript files
 graft src

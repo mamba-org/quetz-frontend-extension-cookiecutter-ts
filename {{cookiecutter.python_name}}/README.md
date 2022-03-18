@@ -1,6 +1,6 @@
 # {{ cookiecutter.python_name }}
 
-![Github Actions Status]({{ cookiecutter.repository }}/workflows/Build/badge.svg)
+[![Github Actions Status]({{ cookiecutter.repository }}/workflows/Build/badge.svg)]({{ cookiecutter.repository }}/actions/workflows/build.yml)
 
 {{ cookiecutter.project_short_description }}
 

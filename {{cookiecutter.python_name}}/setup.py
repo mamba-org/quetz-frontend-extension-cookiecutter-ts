@@ -12,56 +12,58 @@ HERE = Path(__file__).parent.resolve()
 # The name of the project
 name = "{{ cookiecutter.python_name }}"
 
-lab_path = (HERE / name.replace("-", "_") / "labextension")
+quetz_path = (HERE / name.replace("-", "_") / "quetzextension")
 
 # Representative files that should exist after a successful build
 ensured_targets = [
-    str(lab_path / "package.json"),
-    str(lab_path / "static/style.js")
+    str(quetz_path / "package.json"){% if cookiecutter.kind.lower() != "theme" %},
+    str(quetz_path / "static/style.js"){% endif %}
 ]
 
-labext_name = "{{ cookiecutter.extension_name }}"
+quetzext_name = "{{ cookiecutter.extension_name }}"
 
 data_files_spec = [
-    ("share/quetz/frontend/extensions/%s" % labext_name, str(lab_path.relative_to(HERE)), "**"),
-    ("share/quetz/frontend/extensions/%s" % labext_name, str("."), "install.json")
+    ("share/quetz/frontend/extensions/%s" % quetzext_name, str(quetz_path.relative_to(HERE)), "**"),
+    ("share/quetz/frontend/extensions/%s" % quetzext_name, str("."), "install.json")
 ]
 
 long_description = (HERE / "README.md").read_text()
 
 # Get the package info from package.json
 pkg_json = json.loads((HERE / "package.json").read_bytes())
+version = (
+    pkg_json["version"]
+    .replace("-alpha.", "a")
+    .replace("-beta.", "b")
+    .replace("-rc.", "rc")
+) 
 
 setup_args = dict(
     name=name,
-    version=pkg_json["version"],
+    version=version,
     url=pkg_json["homepage"],
     author=pkg_json["author"]["name"],
     author_email=pkg_json["author"]["email"],
     description=pkg_json["description"],
     license=pkg_json["license"],
+    license_file="LICENSE",
     long_description=long_description,
     long_description_content_type="text/markdown",
     packages=setuptools.find_packages(),
-    install_requires=[],
+    install_requires=["quetz-frontend"],
     zip_safe=False,
     include_package_data=True,
-    python_requires=">=3.6",
+    python_requires=">=3.7",
     platforms="Linux, Mac OS X, Windows",
-    keywords=["Jupyter", "JupyterLab", "JupyterLab3"],
+    keywords=["Quetz"],
     classifiers=[
         "License :: OSI Approved :: BSD License",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
-        "Framework :: Jupyter",
-        "Framework :: Jupyter :: JupyterLab",
-        "Framework :: Jupyter :: JupyterLab :: 3",
-        "Framework :: Jupyter :: JupyterLab :: Extensions",
-        "Framework :: Jupyter :: JupyterLab :: Extensions :: Prebuilt",
+        "Programming Language :: Python :: 3.10"
     ],
 )
 
@@ -72,7 +74,7 @@ try:
         get_data_files
     )
     post_develop = npm_builder(
-        build_cmd="install:extension", source_dir="src", build_dir=lab_path
+        build_cmd="install:extension", source_dir="src", build_dir=quetz_path
     )
     setup_args["cmdclass"] = wrap_installers(post_develop=post_develop, ensured_targets=ensured_targets)
     setup_args["data_files"] = get_data_files(data_files_spec)
