@@ -63,7 +63,7 @@ jobs:
     strategy:
       matrix:
         # This will be used by the base setup action
-        python-version: ["3.7", "3.10"]
+        python-version: ["3.8", "3.10"]
 
     steps:
       - name: Checkout
@@ -104,7 +104,7 @@ jobs:
     strategy:
       matrix:
         # This will be used by the base setup action
-        python-version: ["3.7", "3.10"]
+        python-version: ["3.8", "3.10"]
 
     steps:
       - name: Checkout
