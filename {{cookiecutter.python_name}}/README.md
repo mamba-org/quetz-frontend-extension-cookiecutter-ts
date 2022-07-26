@@ -76,7 +76,7 @@ To execute them, run:
 
 ```sh
 pytest -vv -r ap --cov {{ cookiecutter.python_name }}
-```{% endif %}
+```
 
 #### Frontend tests
 
