@@ -17,7 +17,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
   optional: [ISettingRegistry],{% endif %}
   activate: (app: JupyterFrontEnd{% if cookiecutter.kind.lower() == 'theme' %}, manager: IThemeManager{% endif %}{% if cookiecutter.has_settings.lower().startswith('y') %}, settingRegistry: ISettingRegistry | null{% endif %}) => {
     console.log('Quetz extension {{ cookiecutter.extension_name }} is activated!');{% if cookiecutter.kind.lower() == 'theme' %}
-    const style = '{{ cookiecutter.labextension_name }}/index.css';
+    const style = '{{ cookiecutter.extension_name }}/index.css';
 
     manager.register({
       name: '{{ cookiecutter.extension_name }}',

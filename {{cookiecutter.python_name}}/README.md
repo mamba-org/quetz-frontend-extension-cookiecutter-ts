@@ -61,22 +61,8 @@ pip uninstall {{ cookiecutter.python_name }}
 In development mode, you will also need to remove the symlink created by `quetz-frontend develop`
 command. To find its location, you can run `quetz-frontend list` to figure out where the `labextensions`
 folder is located. Then you can remove the symlink named `{{ cookiecutter.extension_name }}` within that folder.
-
-#### Server tests
-
-This extension is using [Pytest](https://docs.pytest.org/) for Python code testing.
-
-Install test dependencies (needed only once):
-
-```sh
-pip install -e ".[test]"
-```
-
-To execute them, run:
-
-```sh
-pytest -vv -r ap --cov {{ cookiecutter.python_name }}
-```
+{% if cookiecutter.test.lower().startswith('y') %}
+### Testing the extension
 
 #### Frontend tests
 

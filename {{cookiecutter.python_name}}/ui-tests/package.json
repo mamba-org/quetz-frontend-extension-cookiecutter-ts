@@ -1,7 +1,7 @@
 {
-  "name": "{{ cookiecutter.labextension_name }}-ui-tests",
+  "name": "{{ cookiecutter.extension_name }}-ui-tests",
   "version": "1.0.0",
-  "description": "JupyterLab {{ cookiecutter.labextension_name }} Integration Tests",
+  "description": "JupyterLab {{ cookiecutter.extension_name }} Integration Tests",
   "private": true,
   "scripts": {
     "start": "jupyter lab --config jupyter_server_test_config.py",
